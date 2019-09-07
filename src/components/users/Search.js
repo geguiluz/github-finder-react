@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import GithubContext from '../../context/github/githubContext';
 
-const Search = ({ searchUsers, showClear, clearUsers, showAlert }) => {
+const Search = ({ showClear, clearUsers, showAlert }) => {
+  const githubContext = useContext(GithubContext);
   // This is our state. We´re setting the default value to blank on useState('')
   const [text, setText] = useState('');
 
@@ -10,7 +12,7 @@ const Search = ({ searchUsers, showClear, clearUsers, showAlert }) => {
     if (text === '') {
       showAlert('Please enter something', 'light');
     } else {
-      searchUsers(text);
+      githubContext.searchUsers(text);
       setText('');
     }
   };
@@ -45,7 +47,6 @@ const Search = ({ searchUsers, showClear, clearUsers, showAlert }) => {
 };
 
 Search.propTypes = {
-  searchUsers: PropTypes.func.isRequired,
   clearUsers: PropTypes.func.isRequired,
   showClear: PropTypes.bool.isRequired,
   showAlert: PropTypes.func.isRequired,
