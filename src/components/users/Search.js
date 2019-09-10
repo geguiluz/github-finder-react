@@ -1,16 +1,17 @@
 import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 import GithubContext from '../../context/github/githubContext';
+import AlertContext from '../../context/alert/alertContext';
 
-const Search = ({ showAlert }) => {
+const Search = () => {
   const githubContext = useContext(GithubContext);
+  const alertContext = useContext(AlertContext);
   // This is our state. We´re setting the default value to blank on useState('')
   const [text, setText] = useState('');
 
   const onSubmit = e => {
     e.preventDefault();
     if (text === '') {
-      showAlert('Please enter something', 'light');
+      alertContext.setAlert('Please enter something', 'light');
     } else {
       githubContext.searchUsers(text);
       setText('');
@@ -47,11 +48,6 @@ const Search = ({ showAlert }) => {
       )}
     </div>
   );
-};
-
-Search.propTypes = {
-  showClear: PropTypes.bool.isRequired,
-  showAlert: PropTypes.func.isRequired,
 };
 
 export default Search;
